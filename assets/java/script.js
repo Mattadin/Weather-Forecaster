@@ -108,17 +108,22 @@ function showWeatherData (data){
 function searchWeatherData(event) {
   event.preventDefault();
   let searchVal = document.querySelector("#search-input").value;
-    fetch(
-        "https://api.openweathermap.org/data/2.5/weather?q=" 
-        + searchVal 
-        + "&units=metric&appid="
-        + apiKey
-    )
-    .then((response) => response.json())
-    .then(data => {
-      console.log(data);
-      showWeatherData(data);
-    }) 
+  let geoLoc = `https://api.openweathermap.org/geo/1.0/direct?q=` + searchVal + `&limit=1&appid=${apiKey}`;
+
+      fetch(geoLoc).then((response) => response.json()).then(data =>{
+        console.log(data);
+        weatherFinal(data);
+      })
+  
 }
+
+function weatherFinal(data) {
+      let {lat , lon} = data[0];
+      let weatherLoc = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${apiKey}`
+      fetch(weatherLoc).then((response) => response.json()).then(data =>{
+        console.log(data);
+        showWeatherData(data);
+      })
+    }
 
 document.getElementById("search-button").addEventListener("click", searchWeatherData)
