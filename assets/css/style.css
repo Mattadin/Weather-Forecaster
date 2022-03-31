@@ -76,6 +76,7 @@ body {
   padding: 25px;
   position: fixed;
   bottom: 0;
+  left: 0;
   display: flex;
   color: var(--white);
   width: 100%;
@@ -140,6 +141,7 @@ body {
     justify-content: start;
     align-items: none;
     overflow-y: scroll;
+    max-height: 50vh;
   }
 
   .container {
@@ -185,5 +187,6 @@ body {
     justify-content: start;
     align-items: none;
     overflow-x: scroll;
+    max-height: 50vh;
   }
 }
